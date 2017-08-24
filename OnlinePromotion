@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Orchard_Marketing_Solution
+{
+    public class OnlinePromotion : Promotion
+    {
+        
+        private string _providerKey { get; set; }
+        
+        public string providerKey
+        {
+            get { return this._providerKey; }
+            set { this._providerKey = value; }
+        }
+    }
+}
