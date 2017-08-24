@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Orchard_Marketing_Solution
+{
+    public class Promotion
+    {
+        private Address _address { get; set; }
+        private string _promotionCode { get; set; }
+        private string _name { get; set; }
+
+        public Address address
+        {
+            get { return this._address; }
+            set { this._address = value; }
+        }
+
+        public string promotionCode
+        {
+            get { return this._promotionCode; }
+            set { this._promotionCode = value; }
+        }
+
+        public string name
+        {
+            get { return this._name; }
+            set { this._name = value; }
+        }
+
+
+
+    }
+}
