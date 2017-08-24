@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Collections;
+/*
+  * Author: Reza Nourbakhsh - rezanoorbakhsh@ymail.com
+ */
+namespace Orchard_Marketing_Solution
+{
+    //Surface Promotion checker/handler
+    //Surface Promotion class
+    public class SurfacePromotion : IPromotionMatcher
+    {
+        //All punctuation except % and $
+        const string REGEXP = @"[\p{P}-[%$]]";
+
+        #region IpromotionMatcher Members
+        
+        public bool IsMatch(OnlinePromotion onlinePromotion, Promotion promotion)
+        {
+           
+            try
+            {
+                
+                Regex regex = new Regex(REGEXP, RegexOptions.IgnoreCase);
+                //Remove all punctuation except $ and % from onlinepromotion name
+                string onlinePromotionNamePunctuationless = regex.Replace(onlinePromotion.name, String.Empty).Trim();
+                string promotionNamePunctuationless = regex.Replace(promotion.name, String.Empty).Trim();
+
+                //Remove all punctuation except $ and % from promotion adderss
+                string onlinePromotionAddressPunctuationless = regex.Replace(onlinePromotion.address.street + "," + onlinePromotion.address.suburb + "," + onlinePromotion.address.postcode, String.Empty);
+                string promotionAddressPunctuationless = regex.Replace(promotion.address.street + "," + promotion.address.suburb + "," + promotion.address.postcode, String.Empty);
+
+                //Campare the name and address of onlinepromotion and promotion
+                if (
+                    onlinePromotionNamePunctuationless.Trim().Equals(promotionNamePunctuationless.Trim()) &&
+                    onlinePromotionAddressPunctuationless.Trim().Equals(promotionAddressPunctuationless.Trim())
+                    )
+                  
+                {
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write("An error occurred:" + ex.Message);
+            }
+            return false;
+
+        }
+        #endregion
+    }
+}
