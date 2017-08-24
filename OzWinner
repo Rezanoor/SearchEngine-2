@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Device.Location;
+/*
+  * Author: Reza Nourbakhsh - rezanoorbakhsh@ymail.com
+ */
+namespace Orchard_Marketing_Solution
+{
+    //Oz Winner checker/handler
+    //Oz Winner class
+    public class OzWinner : IPromotionMatcher
+    {
+        //The specific distance - business rule
+        const int DISTANCE = 500;
+
+        #region IpromotionMatcher Members
+        //Here IsMatch calls the distance method to calculate the distance and compare than with DISTANCE=500m
+        public bool IsMatch(OnlinePromotion onlinePromotion, Promotion promotion)
+        {
+            try
+            {
+                GeoCoordinate onlinePromotionLocation = new GeoCoordinate(Convert.ToDouble(onlinePromotion.address.latitude), Convert.ToDouble(onlinePromotion.address.longitude));
+                GeoCoordinate promotionLocation = new GeoCoordinate(Convert.ToDouble(promotion.address.latitude), Convert.ToDouble(promotion.address.longitude));
+
+                if (
+                    promotion.promotionCode == onlinePromotion.promotionCode 
+                    &&
+                    onlinePromotion != null
+                    &&
+                    promotionLocation != null
+                    &&
+                    DISTANCE >= onlinePromotionLocation.GetDistanceTo(promotionLocation)
+                    )
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write("An error occurred:" + ex.Message);
+            }
+            return false;
+        }
+
+        #endregion
+    }
+}
