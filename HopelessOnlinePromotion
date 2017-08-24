@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+/*
+  * Author: Reza Nourbakhsh - rezanoorbakhsh@ymail.com
+ */
+namespace Orchard_Marketing_Solution
+{
+    public class HopelessOnlinePromotion : IPromotionMatcher
+    {
+        const int BACKWARDLENGTH = 3;
+
+        #region IpromotionMatcher Members
+        
+        public bool IsMatch(OnlinePromotion onlinePromotion, Promotion promotion)
+        {
+        
+            try
+            {
+                return (promotion.promotionCode == promotionCodeCorrection(onlinePromotion.promotionCode) ? true : false);
+            }
+            catch (Exception ex)
+            {
+                Console.Write("An error occurred:" + ex.Message);
+            }
+            return false;
+        }
+
+        #endregion
+        //This method reversed the last three charachter of the promotion code
+        private string promotionCodeCorrection(string promotionCode)
+        {
+            if (promotionCode != null && promotionCode.Length > BACKWARDLENGTH)
+            {
+                char[] part = promotionCode.Substring(promotionCode.Length - BACKWARDLENGTH).ToArray();
+                Array.Reverse(part);
+                String newPromotionCode = promotionCode.Replace(promotionCode.Substring(promotionCode.Length - BACKWARDLENGTH), new String(part));
+                return newPromotionCode;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+}
