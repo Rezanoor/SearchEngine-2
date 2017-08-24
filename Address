@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Orchard_Marketing_Solution
+{
+    public class Address
+    {
+        
+        private string _street { get; set; }
+        private string _suburb { get; set; }
+        private string _postcode { get; set; }
+        private decimal _latitude { get; set; }
+        private decimal _longitude { get; set; }
+
+        public string street
+        {
+            get { return this._street; }
+            set { this._street = value; }
+        }
+
+        public string suburb
+        {
+            get { return this._suburb; }
+            set { this._suburb = value; }
+        }
+
+        public string postcode
+        {
+            get { return this._postcode; }
+            set { this._postcode = value; }
+        }
+
+        public decimal latitude
+        {
+            get { return this._latitude; }
+            set { this._latitude = value; }
+        }
+
+        public decimal longitude
+        {
+            get { return this._longitude; }
+            set { this._longitude = value; }
+        }
+    }
+}
